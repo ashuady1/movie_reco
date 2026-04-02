@@ -183,7 +183,7 @@ if st.button('Get Recommendations', type='primary', use_container_width=True):
                         align-items: center;
                     }
                     .rec-rank { color: #888; font-size: 0.85rem; min-width: 2rem; }
-                    .rec-title { font-weight: 600; font-size: 1rem; flex: 1; padding: 0 1rem; color: #ffffff; }
+                    .rec-title { font-weight: 600; font-size: 0.88rem; flex: 1; padding: 0 1rem; color: #ffffff; }
                     .rec-title a { color: inherit; text-decoration: none; }
                     .rec-title a:hover { text-decoration: underline; }
                     .rec-score { color: #7dd3fc; font-size: 0.9rem; font-weight: 600; }
