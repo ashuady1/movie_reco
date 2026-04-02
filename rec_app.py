@@ -13,6 +13,7 @@ To deploy on Streamlit Cloud:
 """
 
 import streamlit as st
+import streamlit.components.v1 as components
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
@@ -171,13 +172,27 @@ if st.button('Get Recommendations', type='primary', use_container_width=True):
             # Render each result as a styled card
             for idx, row in result_df.iterrows():
                 score_pct = f"{row['Similarity Score'] * 100:.1f}%"
-                st.markdown(f"""
-                    <div class="rec-card">
-                        <span class="rec-rank">#{idx}</span>
-                        <span class="rec-title">{row['Movie Title']}</span>
-                        <span class="rec-score">{score_pct}</span>
+                title     = row['Movie Title']
+                imdb_url  = imdb_lookup.get(title)
+            
+                if imdb_url:
+                    title_html = f'<a href="{imdb_url}" target="_blank" style="color:inherit;text-decoration:none;">{title}</a>'
+                    badge_html = f'<a href="{imdb_url}" target="_blank" style="font-size:0.7rem;font-weight:700;color:#000;background:#f5c518;border-radius:3px;padding:1px 6px;margin-left:8px;text-decoration:none;">IMDb</a>'
+                else:
+                    title_html = title
+                    badge_html = ''
+            
+                card = f"""
+                    <div style="background:#1e1e2e;border-radius:10px;padding:0.7rem 1.2rem;
+                                margin-bottom:0.5rem;display:flex;justify-content:space-between;align-items:center;">
+                        <span style="color:#888;font-size:0.85rem;min-width:2rem;">#{idx}</span>
+                        <span style="font-weight:600;font-size:1rem;flex:1;padding:0 1rem;">
+                            {title_html}{badge_html}
+                        </span>
+                        <span style="color:#7dd3fc;font-size:0.9rem;font-weight:600;">{score_pct}</span>
                     </div>
-                """, unsafe_allow_html=True)
+                """
+                components.html(card, height=60)
 
             # Also show as a downloadable table
             with st.expander('📋 View as table / download'):
