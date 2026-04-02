@@ -205,7 +205,7 @@ if st.button('Get Recommendations', type='primary', use_container_width=True):
                     </div>
                 """
             
-            components.html(cards_html, height=n_recs * 44)
+            components.html(cards_html, height=n_recs * 48)
 
             # Also show as a downloadable table
             with st.expander('📋 View as table / download'):
