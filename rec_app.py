@@ -176,17 +176,32 @@ if st.button('Get Recommendations', type='primary', use_container_width=True):
                 imdb_url  = imdb_lookup.get(title)
             
                 if imdb_url:
-                    title_html = f'<a href="{imdb_url}" target="_blank" style="color:#ffffff;text-decoration:none;font-weight:600;font-size:1rem;">{title}</a>'
+                    title_content = f'<a href="{imdb_url}" target="_blank" style="color:inherit;text-decoration:none;">{title}</a>'
                 else:
-                    title_html = f'<span style="color:#ffffff;font-weight:600;font-size:1rem;">{title}</span>'
+                    title_content = title
             
                 card = f"""
-                    <div style="background:#1e1e2e;border-radius:10px;padding:0.7rem 1.2rem;
-                                margin-bottom:0.5rem;display:flex;justify-content:space-between;align-items:center;">
-                        <span style="color:#888;font-size:0.85rem;min-width:2rem;">#{idx}</span>
-                        <span style="flex:1;padding:0 1rem;">{title_html}</span>
-                        <span style="color:#7dd3fc;font-size:0.9rem;font-weight:600;">{score_pct}</span>
+                    <div class="rec-card">
+                        <span class="rec-rank">#{idx}</span>
+                        <span class="rec-title">{title_content}</span>
+                        <span class="rec-score">{score_pct}</span>
                     </div>
+                    <style>
+                        body {{ margin: 0; background: transparent; }}
+                        .rec-card {{
+                            background: #1e1e2e;
+                            border-radius: 10px;
+                            padding: 0.7rem 1.2rem;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                        }}
+                        .rec-rank {{ color: #888; font-size: 0.85rem; min-width: 2rem; }}
+                        .rec-title {{ font-weight: 600; font-size: 1rem; flex: 1; padding: 0 1rem; color: #ffffff; }}
+                        .rec-title a {{ color: inherit; text-decoration: none; }}
+                        .rec-title a:hover {{ text-decoration: underline; }}
+                        .rec-score {{ color: #7dd3fc; font-size: 0.9rem; font-weight: 600; }}
+                    </style>
                 """
                 components.html(card, height=60)
 
